@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>System Override | Cyber Aesthetic</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap");
+
+      /* Main wrapper optimized for full screen preview */
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #030613;
+      }
+
+      .aesthetic-container {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        min-height: 400px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: "JetBrains Mono", monospace;
+        overflow: hidden;
+        perspective: 1000px;
+      }
+
+      /* =========================================
+       BACKGROUND EFFECTS (Grid & Glow)
+    ========================================= */
+      .cyber-grid {
+        position: absolute;
+        width: 200%;
+        height: 200%;
+        background-image:
+          linear-gradient(rgba(100, 255, 218, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(100, 255, 218, 0.03) 1px, transparent 1px);
+        background-size: 30px 30px;
+        transform: rotateX(60deg) translateY(-50px);
+        animation: gridMove 10s linear infinite;
+        z-index: 0;
+      }
+
+      .ambient-glow {
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(
+          circle,
+          rgba(198, 120, 221, 0.2) 0%,
+          rgba(97, 175, 239, 0.1) 40%,
+          transparent 70%
+        );
+        filter: blur(40px);
+        z-index: 0;
+        animation: pulseGlow 4s ease-in-out infinite alternate;
+      }
+
+      @keyframes gridMove {
+        0% {
+          transform: rotateX(60deg) translateY(0);
+        }
+        100% {
+          transform: rotateX(60deg) translateY(30px);
+        }
+      }
+
+      @keyframes pulseGlow {
+        0% {
+          opacity: 0.5;
+          transform: scale(0.8);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1.2);
+        }
+      }
+
+      /* =========================================
+       THE RAIN PATTERN
+    ========================================= */
+      .rain-pattern {
+        position: absolute;
+        top: -100%;
+        left: 0;
+        width: 100%;
+        height: 300%;
+        z-index: 1;
+        background-image:
+          repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 20px,
+            rgba(97, 175, 239, 0.2) 20px,
+            rgba(97, 175, 239, 0.2) 40px
+          ),
+          repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 30px,
+            #030613 30px,
+            #030613 32px
+          );
+        background-size:
+          100% 100px,
+          32px 100%;
+        animation: rainDrop 2s linear infinite;
+        opacity: 0.5;
+      }
+
+      .rain-pattern.layer-2 {
+        background-image:
+          repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 40px,
+            rgba(198, 120, 221, 0.15) 40px,
+            rgba(198, 120, 221, 0.15) 60px
+          ),
+          repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 50px,
+            #030613 50px,
+            #030613 53px
+          );
+        background-size:
+          100% 150px,
+          53px 100%;
+        animation: rainDrop 4s linear infinite;
+        opacity: 0.3;
+      }
+
+      @keyframes rainDrop {
+        0% {
+          transform: translateY(0);
+        }
+        100% {
+          transform: translateY(33.33%);
+        }
+      }
+
+      /* =========================================
+       PREMIUM GLASS WINDOW
+    ========================================= */
+      .code-window {
+        z-index: 10;
+        width: 85%;
+        max-width: 420px;
+        background: linear-gradient(
+          135deg,
+          rgba(13, 17, 23, 0.7),
+          rgba(13, 17, 23, 0.4)
+        );
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        border-left: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 14px;
+        box-shadow:
+          0 20px 50px -10px rgba(0, 0, 0, 0.9),
+          0 0 30px rgba(97, 175, 239, 0.15);
+        overflow: hidden;
+        position: relative;
+        animation: float 6s ease-in-out infinite;
+        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+
+      /* Glass glare sweeping effect on hover */
+      .code-window::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -150%;
+        width: 50%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.08),
+          transparent
+        );
+        transform: skewX(-20deg);
+        transition: left 0.6s ease-in-out;
+        z-index: 20;
+        pointer-events: none;
+      }
+
+      .code-window:hover {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow:
+          0 25px 60px -10px rgba(0, 0, 0, 0.9),
+          0 0 40px rgba(97, 175, 239, 0.3);
+      }
+
+      .code-window:hover::before {
+        left: 150%;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      /* =========================================
+       WINDOW HEADER
+    ========================================= */
+      .window-header {
+        background: rgba(0, 0, 0, 0.5);
+        padding: 12px 16px;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .dots-container {
+        display: flex;
+        gap: 6px;
+      }
+
+      .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        transition: filter 0.3s;
+      }
+
+      .dot.red {
+        background-color: #ff5f56;
+        border: 1px solid #e0443e;
+      }
+      .dot.yellow {
+        background-color: #ffbd2e;
+        border: 1px solid #dea123;
+      }
+      .dot.green {
+        background-color: #27c93f;
+        border: 1px solid #1aab29;
+      }
+
+      .code-window:hover .dot {
+        filter: brightness(1.3) drop-shadow(0 0 4px currentColor);
+      }
+
+      .window-title {
+        margin: 0 auto;
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 0.75rem;
+        letter-spacing: 1px;
+        transform: translateX(-24px);
+      }
+
+      /* =========================================
+       PRO SYNTAX HIGHLIGHTING (One Dark Theme)
+    ========================================= */
+      .code-content {
+        padding: 20px;
+        color: #abb2bf;
+        font-size: 0.85rem;
+        line-height: 1.6;
+      }
+
+      .line {
+        display: flex;
+        align-items: center;
+        white-space: nowrap;
+        opacity: 0;
+        animation: bootUp 0.5s ease forwards;
+      }
+
+      .empty-line {
+        height: 1.6em;
+      }
+
+      /* Staggered animation for code typing feel */
+      .line:nth-child(1) {
+        animation-delay: 0.2s;
+      }
+      .line:nth-child(2) {
+        animation-delay: 0.3s;
+      }
+      .line:nth-child(3) {
+        animation-delay: 0.5s;
+      }
+      .line:nth-child(4) {
+        animation-delay: 0.7s;
+      }
+      .line:nth-child(5) {
+        animation-delay: 0.9s;
+      }
+      .line:nth-child(6) {
+        animation-delay: 1.1s;
+      }
+      .line:nth-child(7) {
+        animation-delay: 1.2s;
+      }
+      .line:nth-child(8) {
+        animation-delay: 1.5s;
+      }
+
+      @keyframes bootUp {
+        0% {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .indent {
+        margin-left: 1.5rem;
+      }
+
+      /* Authentic Dev Colors */
+      .keyword {
+        color: #c678dd;
+      } /* Purple */
+      .variable {
+        color: #e06c75;
+      } /* Red */
+      .function {
+        color: #61afef;
+        text-shadow: 0 0 8px rgba(97, 175, 239, 0.4);
+      } /* Glowing Blue */
+      .string {
+        color: #98c379;
+      } /* Green */
+      .property {
+        color: #d19a66;
+      } /* Orange */
+
+      /* Blinking Cyber Cursor */
+      .cursor {
+        display: inline-block;
+        width: 8px;
+        height: 1.2em;
+        background-color: #61afef;
+        margin-left: 4px;
+        box-shadow: 0 0 10px #61afef;
+        animation: blink 1s step-end infinite;
+        opacity: 0;
+        animation-delay: 1.5s; /* Syncs with last line */
+        animation-fill-mode: forwards;
+      }
+
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="aesthetic-container">
+      <div class="cyber-grid"></div>
+      <div class="ambient-glow"></div>
+
+      <div class="rain-pattern"></div>
+      <div class="rain-pattern layer-2"></div>
+
+      <div class="code-window">
+        <div class="window-header">
+          <div class="dots-container">
+            <div class="dot red"></div>
+            <div class="dot yellow"></div>
+            <div class="dot green"></div>
+          </div>
+          <div class="window-title">system_override.js</div>
+        </div>
+
+        <div class="code-content">
+          <div class="line">
+            <span class="keyword">import</span> {
+            <span class="variable">System</span> }
+            <span class="keyword">from</span>
+            <span class="string">'@core/os'</span>;
+          </div>
+          <div class="line empty-line"></div>
+          <div class="line">
+            <span class="keyword">async function</span>
+            <span class="function">bypassSecurity</span>() {
+          </div>
+          <div class="line indent">
+            <span class="keyword">await</span>
+            <span class="variable">System</span>.<span class="function"
+              >override</span
+            >({ <span class="property">stealth</span>:
+            <span class="keyword">true</span> });
+          </div>
+          <div class="line indent">
+            <span class="variable">console</span>.<span class="function"
+            <span class="variable">console</span>.<span class="function"
+              >log</span
+            >(<span class="string">"Access Granted."</span>);
+          </div>
+          <div class="line">}</div>
+          <div class="line empty-line"></div>
+          <div class="line">
+            <span class="function">bypassSecurity</span>();<span
+              class="cursor"
+            ></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<!-- Credited to: https://github.com/unpentest -->
+<!-- Coding: Grain Untalan -->\
+<!-- Design: Grain Untalan
